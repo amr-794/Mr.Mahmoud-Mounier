@@ -3,15 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mr.Mahmoud Mounier</title>
+    <title>Mr.Mahmoud_Mounier</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
         :root {
-            --main-color: #00ffcc; /* لون رئيسي جديد */
-            --secondary-color: #ff00ff; /* لون ثانوي جديد */
+            --main-color: #00ffcc; /* لون رئيسي */
+            --secondary-color: #ff6f61; /* لون ثانوي */
             --accent: #ffcc00; /* لون مميز */
             --gradient: linear-gradient(135deg, var(--main-color), var(--secondary-color), var(--accent));
             --title-color: #ff6f61; /* لون لقب "The Master" */
+            --quote-color: #00ffcc; /* لون علامة الـ Quote */
+            --verified-color: #ff6f61; /* لون علامة التوثيق الجديد */
         }
 
         * {
@@ -30,36 +32,32 @@
             font-family: 'Arial', sans-serif;
         }
 
-        /* تأثير الخلفية المستقبلية */
         .background-effect {
-            position: absolute;
+            position: fixed;
+            top: 0;
+            left: 0;
             width: 100%;
             height: 100%;
-            background: radial-gradient(circle, transparent 10%, #000 10%);
-            background-size: 20px 20px;
-            z-index: -1;
+            z-index: 1;
+            pointer-events: none;
+            background: radial-gradient(circle, rgba(0, 255, 204, 0.1) 0%, rgba(0, 0, 0, 0.9) 70%);
+            animation: background-rotate 20s infinite linear;
         }
 
-        .background-effect::before,
-        .background-effect::after {
-            content: '';
-            position: absolute;
+        .dynamic-background {
+            position: fixed;
+            top: 0;
+            left: 0;
             width: 100%;
             height: 100%;
-            background: radial-gradient(circle, var(--main-color) 1%, transparent 1%);
-            background-size: 50px 50px;
-            animation: moveParticles 10s linear infinite;
+            z-index: 0;
+            background: linear-gradient(45deg, #000, #111, #222, #000);
+            animation: dynamic-bg 10s infinite alternate;
         }
 
-        .background-effect::after {
-            background: radial-gradient(circle, var(--secondary-color) 1%, transparent 1%);
-            background-size: 70px 70px;
-            animation: moveParticles 15s linear infinite;
-        }
-
-        @keyframes moveParticles {
-            0% { background-position: 0 0; }
-            100% { background-position: 1000px 1000px; }
+        @keyframes dynamic-bg {
+            0% { background-position: 0% 50%; }
+            100% { background-position: 100% 50%; }
         }
 
         .card-container {
@@ -70,6 +68,8 @@
             transform-style: preserve-3d;
             perspective: 1000px;
             will-change: transform;
+            transform: translateZ(0);
+            z-index: 2;
         }
 
         .card {
@@ -77,12 +77,15 @@
             width: 100%;
             height: 100%;
             transform-style: preserve-3d;
-            transition: transform 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+            transition: all 0.8s cubic-bezier(0.23, 1, 0.32, 1);
             border-radius: 20px;
             overflow: hidden;
+            will-change: transform;
+            transform: translateZ(0);
             backface-visibility: hidden;
             box-shadow: 0 0 50px rgba(0, 255, 204, 0.5); /* ظل بلون رئيسي */
-            animation: card-entrance 2.5s ease-out forwards;
+            animation: card-entrance 3s ease-out forwards;
+            background: rgba(0, 0, 0, 0.8); /* خلفية داكنة */
         }
 
         .card-face {
@@ -90,20 +93,25 @@
             width: 100%;
             height: 100%;
             backface-visibility: hidden;
-            background: rgba(0, 0, 0, 0.9);
             border-radius: 20px;
-            backdrop-filter: blur(10px);
-            box-shadow: 0 0 20px var(--main-color);
         }
 
-        .holographic-overlay {
+        .web-grid {
             position: absolute;
-            width: 150%;
-            height: 150%;
-            background: var(--gradient);
-            opacity: 0.2;
-            animation: hologram-flow 8s infinite linear;
-            mix-blend-mode: overlay;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle, transparent 20%, #000 20%, #000 80%, transparent 80%, transparent),
+                        radial-gradient(circle, transparent 20%, #000 20%, #000 80%, transparent 80%, transparent) 50px 50px;
+            background-size: 100px 100px;
+            opacity: 0.5;
+            animation: web-move 10s linear infinite;
+        }
+
+        @keyframes web-move {
+            0% { background-position: 0 0; }
+            100% { background-position: 100px 100px; }
         }
 
         .content {
@@ -123,33 +131,16 @@
             margin-top: 30px;
             transform-style: preserve-3d;
             animation: float 5s ease-in-out infinite;
+            will-change: transform;
+            transform: translateZ(0);
         }
 
         .profile-image {
             width: 100%;
             height: 100%;
-            background: url('Mr_Mahmoud_Mounier.png') center/cover;
-            border-radius: 0; /* إزالة الحدود البيضاوية */
-            position: relative;
-            z-index: 2;
-        }
-
-        /* خلفية الصورة الجديدة */
-        .profile-background {
-            position: absolute;
-            width: 120%;
-            height: 120%;
-            top: -10%;
-            left: -10%;
-            background: var(--gradient);
             border-radius: 50%;
-            animation: rotateBackground 10s linear infinite;
-            z-index: 1;
-        }
-
-        @keyframes rotateBackground {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
+            background: url('Mr_Mahmoud_Mounier.png') center/cover;
+            filter: drop-shadow(0 0 20px var(--main-color));
         }
 
         .energy-aura {
@@ -163,7 +154,6 @@
             animation: aura-pulse 4s infinite;
             filter: blur(15px);
             opacity: 0.6;
-            z-index: 0;
         }
 
         .name {
@@ -196,6 +186,27 @@
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             text-shadow: 0 0 10px var(--main-color);
+            position: relative;
+            padding: 0 20px; /* إضافة padding لترك مسافة حول النص */
+        }
+
+        .info::before,
+        .info::after {
+            content: '"';
+            position: absolute;
+            font-size: 1.5em;
+            color: var(--quote-color);
+            opacity: 0.7;
+        }
+
+        .info::before {
+            top: -10px;
+            left: 0;
+        }
+
+        .info::after {
+            bottom: -10px;
+            right: 0;
         }
 
         .social-links {
@@ -219,6 +230,9 @@
             border-radius: 50%;
             background: rgba(255, 255, 255, 0.1);
             transition: all 0.3s ease;
+            transform-style: preserve-3d;
+            will-change: transform;
+            transform: translateZ(0);
         }
 
         .social-link i {
@@ -230,64 +244,105 @@
         .social-link:hover {
             background: var(--gradient);
             transform: translateZ(20px) rotate(360deg);
+            box-shadow: 0 0 20px var(--main-color);
         }
 
-        @keyframes card-entrance {
-            0% {
-                transform: rotateX(90deg) rotateY(90deg) rotateZ(90deg) scale(0.5);
-                opacity: 0;
-            }
-            50% {
-                transform: rotateX(180deg) rotateY(180deg) rotateZ(180deg) scale(1.2);
-                opacity: 0.8;
-            }
-            100% {
-                transform: rotateX(0deg) rotateY(0deg) rotateZ(0deg) scale(1);
-                opacity: 1;
-            }
+        /* تأثيرات ضوئية */
+        .light-effect {
+            position: absolute;
+            width: 200px;
+            height: 200px;
+            background: radial-gradient(circle, var(--main-color) 0%, transparent 70%);
+            filter: blur(50px);
+            opacity: 0.5;
+            animation: light-move 5s infinite alternate;
         }
 
-        @keyframes hologram-flow {
-            0% { transform: rotate(0deg) translateX(-50%) translateY(-50%); }
-            100% { transform: rotate(360deg) translateX(50%) translateY(50%); }
+        @keyframes light-move {
+            0% { transform: translate(-50%, -50%); }
+            100% { transform: translate(50%, 50%); }
         }
 
-        @keyframes aura-pulse {
-            0%, 100% { transform: scale(1); opacity: 0.6; }
-            50% { transform: scale(1.3); opacity: 0.4; }
+        /* تأثير اهتزاز */
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-5px); }
+            50% { transform: translateX(5px); }
+            75% { transform: translateX(-5px); }
         }
 
-        @keyframes float {
-            0%, 100% { transform: translateY(0px); }
-            50% { transform: translateY(-20px); }
+        .shake-on-hover:hover {
+            animation: shake 0.5s ease-in-out;
+        }
+
+        /* تأثيرات صوتية (اختياري) */
+        .sound-effect {
+            display: none; /* إخفاء العنصر الصوتي */
+        }
+
+        /* علامة التوثيق الجديدة */
+        .verified-badge {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 1.2em;
+            color: var(--verified-color);
+            animation: logo-float 4s ease-in-out infinite;
+            filter: drop-shadow(0 0 10px var(--verified-color));
+        }
+
+        .verified-badge i {
+            font-size: 1.5em;
+            color: var(--verified-color);
+        }
+
+        .verified-badge span {
+            font-size: 0.9em; /* حجم النص أكبر قليلاً */
+            font-weight: bold;
+            color: var(--verified-color);
+            text-transform: uppercase;
+        }
+
+        @keyframes logo-float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
         }
     </style>
 </head>
 <body>
+    <div class="dynamic-background"></div>
     <div class="background-effect"></div>
     <div class="card-container">
         <div class="card">
             <div class="card-face">
-                <div class="holographic-overlay"></div>
+                <div class="web-grid"></div>
+                <div class="light-effect"></div>
                 <div class="content">
+                    <div class="verified-badge">
+                        <i class="fas fa-check-circle"></i> <!-- أيقونة جديدة -->
+                        <span>مدرس مادة الكيمياء</span> <!-- نص جديد -->
+                    </div>
                     <div class="profile-wrapper">
-                        <div class="profile-background"></div>
                         <div class="energy-aura"></div>
                         <div class="profile-image"></div>
                     </div>
-                    <h1 class="name">Mr.Mahmoud Mounier</h1>
+                    <h1 class="name">Mr.Mahmoud_Mounier</h1>
                     <p class="title">El7ateer</p>
                     <p class="info">
                         #مع مونيييير.. الكميا بقت عصييير 🍹🍹🍹🍹🍹🍹🍹🍹
                     </p>
+                    </p>
                     <div class="social-links">
-                        <a href="https://www.facebook.com/share/164BcotG6L/" target="_blank" class="social-link" id="facebook">
+                        <a href="https://www.facebook.com/share/164BcotG6L/" target="_blank" class="social-link shake-on-hover" id="facebook">
                             <i class="fab fa-facebook-f"></i>
                         </a>
-                        <a href="https://youtube.com/@mmonir5301?si=WFGeA6SSjDQ0uaBP" target="_blank" class="social-link" id="youtube">
+                        <a href="https://youtube.com/@mmonir5301?si=WFGeA6SSjDQ0uaBP" target="_blank" class="social-link shake-on-hover" id="youtube">
                             <i class="fab fa-youtube"></i>
                         </a>
-                        <a href="https://wa.me/+201002563100" target="_blank" class="social-link" id="whatsapp">
+                        <a href="https://wa.me/+201002563100" target="_blank" class="social-link shake-on-hover" id="whatsapp">
                             <i class="fab fa-whatsapp"></i>
                         </a>
                     </div>
@@ -296,19 +351,19 @@
         </div>
     </div>
 
+    <!-- تأثيرات صوتية (اختياري) -->
+    <audio class="sound-effect" src="click-sound.mp3"></audio>
+
     <script>
         const cardContainer = document.querySelector('.card-container');
         const card = document.querySelector('.card');
-
-        let isAnimating = false;
+        const webGrid = document.querySelector('.web-grid');
+        const soundEffect = document.querySelector('.sound-effect');
 
         document.addEventListener('mousemove', (e) => {
-            if (isAnimating) return;
-            isAnimating = true;
-
             const xAxis = (window.innerWidth / 2 - e.pageX) / 25;
             const yAxis = (window.innerHeight / 2 - e.pageY) / 25;
-
+            
             requestAnimationFrame(() => {
                 card.style.transform = `
                     rotateY(${xAxis}deg) 
@@ -316,13 +371,10 @@
                     translateZ(50px)
                 `;
 
-                cardContainer.style.transform = `
-                    perspective(1000px)
-                    rotateX(${yAxis * 0.5}deg)
-                    rotateY(${xAxis * 0.5}deg)
+                webGrid.style.transform = `
+                    translateX(${xAxis * 0.5}px)
+                    translateY(${yAxis * 0.5}px)
                 `;
-
-                isAnimating = false;
             });
         });
 
@@ -332,11 +384,38 @@
                 e.preventDefault();
                 const targetUrl = link.getAttribute('href');
                 link.style.transform = 'translateZ(20px) rotate(360deg)';
+                soundEffect.play(); // تشغيل الصوت (اختياري)
                 setTimeout(() => {
                     window.open(targetUrl, '_blank');
                 }, 1000);
             });
         });
+
+        // إنشاء تأثيرات ديناميكية في الخلفية
+        const background = document.querySelector('.background-effect');
+        const colors = ['#00ffcc', '#ff6f61', '#ffcc00', '#00ffcc', '#ff6f61', '#ffcc00'];
+
+        for (let i = 0; i < 50; i++) {
+            const circle = document.createElement('div');
+            circle.classList.add('circle');
+            circle.style.width = `${Math.random() * 50 + 10}px`;
+            circle.style.height = circle.style.width;
+            circle.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+            circle.style.position = 'absolute';
+            circle.style.top = `${Math.random() * 100}%`;
+            circle.style.left = `${Math.random() * 100}%`;
+            circle.style.borderRadius = '50%';
+            circle.style.opacity = '0.5';
+            circle.style.filter = 'blur(10px)';
+            circle.style.zIndex = '-1';
+            background.appendChild(circle);
+
+            // تحريك الدوائر
+            setInterval(() => {
+                circle.style.top = `${Math.random() * 100}%`;
+                circle.style.left = `${Math.random() * 100}%`;
+            }, Math.random() * 5000 + 2000);
+        }
     </script>
 </body>
 </html>
