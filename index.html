@@ -130,6 +130,26 @@
             height: 100%;
             background: url('Mr_Mahmoud_Mounier.png') center/cover;
             border-radius: 0; /* إزالة الحدود البيضاوية */
+            position: relative;
+            z-index: 2;
+        }
+
+        /* خلفية الصورة الجديدة */
+        .profile-background {
+            position: absolute;
+            width: 120%;
+            height: 120%;
+            top: -10%;
+            left: -10%;
+            background: var(--gradient);
+            border-radius: 50%;
+            animation: rotateBackground 10s linear infinite;
+            z-index: 1;
+        }
+
+        @keyframes rotateBackground {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
         }
 
         .energy-aura {
@@ -143,6 +163,7 @@
             animation: aura-pulse 4s infinite;
             filter: blur(15px);
             opacity: 0.6;
+            z-index: 0;
         }
 
         .name {
@@ -250,6 +271,7 @@
                 <div class="holographic-overlay"></div>
                 <div class="content">
                     <div class="profile-wrapper">
+                        <div class="profile-background"></div>
                         <div class="energy-aura"></div>
                         <div class="profile-image"></div>
                     </div>
